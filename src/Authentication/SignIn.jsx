@@ -1,7 +1,8 @@
 import React from 'react';
-import useAuth from '../../../hooks/useAuth';
+
 import { useLocation, useNavigate } from 'react-router';
 import useAxios from '../../../hooks/useAxios';
+import useAuth from '../Hooks/useAuth';
 
 const SocialLogin = () => {
     const { signInWithGoogle } = useAuth();
@@ -23,7 +24,7 @@ const SocialLogin = () => {
                     last_log_in: new Date().toISOString()
                 }
 
-                const res = await axiosInstance.post('/users', userInfo);
+               const res = await axiosInstance.post('/users', userInfo);
                 console.log('user update info', res.data)
 
                 navigate(from);
