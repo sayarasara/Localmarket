@@ -1,0 +1,220 @@
+[
+  {
+    "market_name": "Local Farmers Market",
+    "product_name": "Tomato",
+    "product_image": "https://t4.ftcdn.net/jpg/05/37/04/61/360_F_537046123_s8JVn2NrClPQDOryhSm8jonYZPfIzPRX.jpg",
+    "date": "2023-11-20",
+    "price": "৳40/kg",
+    "emoji": "🍅",
+    "vendor_info": { "name": "Rahim Mia", "role": "Farmer", "contact": "rahim@example.com" },
+    "user_reviews": [
+      { "user": "User123", "comment": "Fresh and organic!", "rating": 4.5 }
+    ],
+    "buttons": {
+      "watchlist": { "label": "Add to Watchlist", "disabled_for": ["admin", "vendor"] },
+      "buy_product": { "label": "Buy Product", "action": "Redirect to checkout" }
+    }
+  },
+  {
+    "market_name": "Local Farmers Market",
+    "product_name": "Cucumber",
+    "product_image": "https://t4.ftcdn.net/jpg/02/66/68/37/360_F_266683754_wzx9XxeNXKudct2Q3qwQf1PvVaQaKOf6.jpg",
+    "date": "2023-11-20",
+    "price": "৳25/kg",
+    "emoji": "🥒",
+    "vendor_info": { "name": "Rahim Mia", "role": "Farmer", "contact": "rahim@example.com" },
+    "user_reviews": [
+      { "user": "User456", "comment": "Crisp and fresh!", "rating": 4 }
+    ],
+    "buttons": {
+      "watchlist": { "label": "Add to Watchlist", "disabled_for": ["admin", "vendor"] },
+      "buy_product": { "label": "Buy Product", "action": "Redirect to checkout" }
+    }
+  },
+  {
+    "market_name": "Dhaka City Supermarket",
+    "product_name": "Rice",
+    "product_image": "https://example.com/rice.jpg",
+    "date": "2023-11-18",
+    "price": "৳60/kg",
+    "emoji": "🍚",
+    "vendor_info": { "name": "Karim Stores", "role": "Wholesaler", "contact": "karim@example.com" },
+    "user_reviews": [
+      { "user": "User789", "comment": "Good quality rice.", "rating": 4 }
+    ],
+    "buttons": {
+      "watchlist": { "label": "Add to Watchlist", "disabled_for": ["admin", "vendor"] },
+      "buy_product": { "label": "Buy Product", "action": "Redirect to checkout" }
+    }
+  },
+  {
+    "market_name": "Dhaka City Supermarket",
+    "product_name": "Lentils",
+    "product_image": "https://c8.alamy.com/comp/B2K14N/dried-lentils-in-a-market-in-thanjavur-south-india-B2K14N.jpg",
+    "date": "2023-11-18",
+    "price": "৳90/kg",
+    "emoji": "🥣",
+    "vendor_info": { "name": "Karim Stores", "role": "Wholesaler", "contact": "karim@example.com" },
+    "user_reviews": [
+      { "user": "User101", "comment": "Clean and well-packed.", "rating": 4.5 }
+    ],
+    "buttons": {
+      "watchlist": { "label": "Add to Watchlist", "disabled_for": ["admin", "vendor"] },
+      "buy_product": { "label": "Buy Product", "action": "Redirect to checkout" }
+    }
+  },
+  {
+    "market_name": "Coastal Fish Market",
+    "product_name": "Hilsa Fish",
+    "product_image": "https://upload.wikimedia.org/wikipedia/commons/d/d3/BHilsa123.jpg",
+    "date": "2023-11-17",
+    "price": "৳800/kg",
+    "emoji": "🐟",
+    "vendor_info": { "name": "Fisherman Ltd.", "role": "Seafood Supplier", "contact": "fish@example.com" },
+    "user_reviews": [
+      { "user": "User202", "comment": "Very fresh!", "rating": 5 }
+    ],
+    "buttons": {
+      "watchlist": { "label": "Add to Watchlist", "disabled_for": ["admin", "vendor"] },
+      "buy_product": { "label": "Buy Product", "action": "Redirect to checkout" }
+    }
+  },
+  {
+    "market_name": "Organic Grocery Store",
+    "product_name": "Apple",
+    "product_image": "https://st4.depositphotos.com/1875497/27237/i/450/depositphotos_272378042-stock-photo-red-apple-in-basket.jpg",
+    "date": "2023-11-16",
+    "price": "৳150/kg",
+    "emoji": "🍎",
+    "vendor_info": { "name": "Green Farms", "role": "Organic Seller", "contact": "green@example.com" },
+    "user_reviews": [
+      { "user": "User404", "comment": "Sweet and crunchy!", "rating": 5 }
+    ],
+    "buttons": {
+      "watchlist": { "label": "Add to Watchlist", "disabled_for": ["admin", "vendor"] },
+      "buy_product": { "label": "Buy Product", "action": "Redirect to checkout" }
+    }
+  },
+  {
+    "market_name": "Organic Grocery Store",
+    "product_name": "Banana",
+    "product_image": "https://images.pexels.com/photos/365810/pexels-photo-365810.jpeg?cs=srgb&dl=pexels-dom-j-7304-365810.jpg&fm=jpg",
+    "date": "2023-11-16",
+    "price": "৳50/dozen",
+    "emoji": "🍌",
+    "vendor_info": { "name": "Green Farms", "role": "Organic Seller", "contact": "green@example.com" },
+    "user_reviews": [
+      { "user": "User505", "comment": "Perfectly ripe.", "rating": 4 }
+    ],
+    "buttons": {
+      "watchlist": { "label": "Add to Watchlist", "disabled_for": ["admin", "vendor"] },
+      "buy_product": { "label": "Buy Product", "action": "Redirect to checkout" }
+    }
+  },
+  {
+    "market_name": "Spice Bazaar",
+    "product_name": "Turmeric",
+    "product_image": "https://i.pinimg.com/736x/da/92/12/da921204fcaed8787b3ff78f458bf676.jpg",
+    "date": "2023-11-15",
+    "price": "৳120/kg",
+    "emoji": "🧡",
+    "vendor_info": { "name": "Spice King", "role": "Spice Trader", "contact": "spice@example.com" },
+    "user_reviews": [
+      { "user": "User606", "comment": "Strong aroma and color.", "rating": 5 }
+    ],
+    "buttons": {
+      "watchlist": { "label": "Add to Watchlist", "disabled_for": ["admin", "vendor"] },
+      "buy_product": { "label": "Buy Product", "action": "Redirect to checkout" }
+    }
+  },
+  {
+    "market_name": "City Meat Shop",
+    "product_name": "Beef",
+    "product_image": "https://c8.alamy.com/comp/E4GC0K/sides-of-beef-hanging-in-the-refrigerator-at-hopcott-meats-a-shop-E4GC0K.jpg",
+    "date": "2023-11-19",
+    "price": "৳600/kg",
+    "emoji": "🥩",
+    "vendor_info": {
+      "name": "Prime Meats",
+      "role": "Butcher",
+      "contact": "meat@example.com"
+    },
+    "user_reviews": [
+      {
+        "user": "User707",
+        "comment": "Fresh and tender!",
+        "rating": 4.5
+      }
+    ],
+    "buttons": {
+      "watchlist": {
+        "label": "Add to Watchlist",
+        "disabled_for": ["admin", "vendor"]
+      },
+      "buy_product": {
+        "label": "Buy Product",
+        "action": "Redirect to checkout"
+      }
+    }
+  },
+  {
+    "market_name": "Winter Vegetable Stall",
+    "product_name": "Cauliflower",
+    "product_image": "https://static.vecteezy.com/system/resources/previews/022/856/459/non_2x/fresh-cauliflowers-in-wooden-boxes-sold-in-supermarket-photo.jpg",
+    "date": "2023-11-21",
+    "price": "৳35/kg",
+    "emoji": "🥦",
+    "vendor_info": {
+      "name": "Seasonal Greens",
+      "role": "Vegetable Vendor",
+      "contact": "greens@example.com"
+    },
+    "user_reviews": [
+      {
+        "user": "User808",
+        "comment": "Fresh and pesticide-free!",
+        "rating": 4
+      }
+    ],
+    "buttons": {
+      "watchlist": {
+        "label": "Add to Watchlist",
+        "disabled_for": ["admin", "vendor"]
+      },
+      "buy_product": {
+        "label": "Buy Product",
+        "action": "Redirect to checkout"
+      }
+    }
+  },
+  {
+    "market_name": "Beverage Corner",
+    "product_name": "Orange Juice",
+    "product_image": "https://c8.alamy.com/comp/DXT57M/oranges-used-by-a-street-vendor-selling-fresh-squeezed-orange-juice-DXT57M.jpg",
+    "date": "2023-11-22",
+    "price": "৳120/liter",
+    "emoji": "🧃",
+    "vendor_info": {
+      "name": "Juice Bar",
+      "role": "Beverage Seller",
+      "contact": "juice@example.com"
+    },
+    "user_reviews": [
+      {
+        "user": "User909",
+        "comment": "100% natural, no sugar added!",
+        "rating": 5
+      }
+    ],
+    "buttons": {
+      "watchlist": {
+        "label": "Add to Watchlist",
+        "disabled_for": ["admin", "vendor"]
+      },
+      "buy_product": {
+        "label": "Buy Product",
+        "action": "Redirect to checkout"
+      }
+    }
+  }
+]

@@ -7,45 +7,48 @@ import Dashboard from "../layouts/Dashboardlayout";
 import MyParcels from "../Dashboard/MyParcels";
 import MyEarnings from "../Dashboard/MyEarnings";
 import MakeAdmin from "../Dashboard/MakeAdmin";
+import PrivateRoute from "../routes/PrivateRoute";
+import Manageitme from "../Dashboard/users/Manageitme";
+import Viewchart from "../Dashboard/users/Viewchart";
+import Addadvertisement from "../Dashboard/Vendor/Addadvertisement";
+import Addproducts from "../Dashboard/Vendor/Addproducts"
+import Myproducts from "../Dashboard/Vendor/Myproducts";
+import VendorRoute from "./VendorRoute";
+import Myadvertisement from "../Dashboard/Vendor/Myadvertisement";
+import Alladvertisement from "../Dashboard/AdminPage/Alladvertisement";
+import Allusers from "../Dashboard/AdminPage/Allusers";
+import Allorders from "../Dashboard/AdminPage/Allorders";
+import AdminRoute from "./AdminRoute";
+
+
+
 
 export const router = createBrowserRouter([
-{
+  {
     path: "/",
-   Component: Rootlayout,
+    element: <Rootlayout />,
     children: [
-      {
-     index: true,
-        Component: App,
-      },
-      
-    
-  {
-    path:'SignIn',
-    Component: SignIn
+      { index: true, element: <App /> },
+      { path: "SignIn", element: <SignIn /> },
+      { path: "Login", element: <Login /> }
+    ]
   },
   {
-    path: 'Login',
-    Component: Login
+    path: "/dashboard",
+    element: <PrivateRoute><Dashboard /></PrivateRoute>,
+    children: [
+      { path: "MyParcels", element: <MyParcels /> },
+      { path: "Manageitme", element: <Manageitme /> },
+      { path: "Viewchart", element: <Viewchart /> },
+      { path: "MyEarnings", element: <VendorRoute><MyEarnings /></VendorRoute> },
+      { path: "Addadvertisement", element: <VendorRoute><Addadvertisement /></VendorRoute> },
+      { path: "Addproducts", element: <VendorRoute><Addproducts /></VendorRoute> },
+      { path: "Myproducts", element: <VendorRoute><Myproducts /></VendorRoute> },
+      { path: "Myadvertisement", element: <VendorRoute><Myadvertisement /></VendorRoute> },
+      { path: "Alladvertisement", element: <AdminRoute><Alladvertisement /></AdminRoute> },
+      { path: "MakeAdmin", element: <AdminRoute><MakeAdmin /></AdminRoute> },
+      { path: "Allusers", element: <AdminRoute><Allusers /></AdminRoute> },
+      { path: "Allorders", element: <AdminRoute><Allorders /></AdminRoute> }
+    ]
   }
-    ],
-  },
-{
-  path: '/dashboard',
-  Component: Dashboard,
-  children: [
-    {
-      index: true,
-      // Optionally, add a DashboardHome component or similar
-      Component: MyParcels, // or another default component
-    },
-    {
-      path: 'MyEarnings',
-      Component: MyEarnings,
-    },
-    {
-      path: 'MakeAdmin',
-      Component: MakeAdmin
-    }
-  ]
-}
-])
+]);

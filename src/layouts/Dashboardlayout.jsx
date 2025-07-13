@@ -1,9 +1,8 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router';
-import ProFastLogo from '../pages/shared/ProFastLogo/ProFastLogo';
-import { FaHome, FaBoxOpen, FaMoneyCheckAlt, FaUserEdit, FaSearchLocation, FaUserCheck, FaUserClock, FaUserShield, FaMotorcycle, FaTasks, FaCheckCircle, FaWallet } from 'react-icons/fa';
+import { FaHome, FaBoxOpen, FaMoneyCheckAlt, FaSearchLocation, FaUserCheck, FaUserClock, FaUserShield, FaMotorcycle, FaTasks, FaCheckCircle, FaWallet } from 'react-icons/fa';
+import { AiFillPieChart } from 'react-icons/ai'; // <-- Correct import for AiFillPieChart
 import UserRole from '../Hooks/UserRole';
-
 
 
 const Dashboardlayout = () => {
@@ -40,6 +39,17 @@ const Dashboardlayout = () => {
                 </div>
                 {/* Page content here */}
                 <Outlet></Outlet>
+                <div className="card bg-base-100 w-96 shadow-sm">
+  <div className="card-body">
+    <h2 className="card-title">Card Title</h2>
+    <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+  </div>
+  <figure>
+    <img
+      src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+      alt="Shoes" />
+  </figure>
+</div>
                 {/* Page content here */}
 
             </div>
@@ -60,38 +70,38 @@ const Dashboardlayout = () => {
                             My Parcels
                         </NavLink>
                     </li>
-                  {/*  <li>
-                        <NavLink to="/dashboard/paymentHistory">
+                   <li>
+                        <NavLink to="/dashboard/Manageitme">
                             <FaMoneyCheckAlt className="inline-block mr-2" />
-                            Payment History
+                          Manageitme
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/dashboard/track">
-                            <FaSearchLocation className="inline-block mr-2" />
-                            Track a Package
-                        </NavLink>
+                    <NavLink to="/dashboard/Viewchart">
+                        <AiFillPieChart className="inline-block mr-2" />
+                        View Chart
+                    </NavLink>
                     </li>
-                    <li>
-                        <NavLink to="/dashboard/profile">
-                            <FaUserEdit className="inline-block mr-2" />
-                            Update Profile
-                        </NavLink>
-                    </li>*/}
                     {/* rider links */}
                     {!roleLoading && role === 'rider' && <>
-                     {/*   <li>
-                            <NavLink to="/dashboard/pending-deliveries">
+                       <li>
+                            <NavLink to="/dashboard/Addproducts">
                                 <FaTasks className="inline-block mr-2" />
-                                Pending Deliveries
+                                Add Products
                             </NavLink>
                         </li>
+                           <li>
+                        <NavLink to="/dashboard/Addadvertisement">
+                            <FaSearchLocation className="inline-block mr-2" />
+                           Add advertisement
+                        </NavLink>
+                    </li>
                         <li>
-                            <NavLink to="/dashboard/completed-deliveries">
+                            <NavLink to="/dashboard/Myadvertisement">
                                 <FaCheckCircle className="inline-block mr-2" />
-                                Completed Deliveries
+                                My Advertisements
                             </NavLink>
-                        </li>*/}
+                        </li>
                         <li>
                             <NavLink to="/dashboard/my-earnings">
                                 <FaWallet className="inline-block mr-2" />
@@ -104,25 +114,25 @@ const Dashboardlayout = () => {
                     {/* admin link */}
                     {!roleLoading && role === 'admin' &&
                         <>
-                           {/*
+                        
                          <li>
-                                <NavLink to="/dashboard/assign-rider">
+                                <NavLink to="/dashboard/Alladvertisement">
                                     <FaMotorcycle className="inline-block mr-2" />
-                                    Assign Rider
+                                    All Advertisements
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink to="/dashboard/active-riders">
+                                <NavLink to="/dashboard/Allorders">
                                     <FaUserCheck className="inline-block mr-2" />
-                                    Active Riders
+                                  All Orders
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink to="/dashboard/pending-riders">
+                                <NavLink to="Allusers">
                                     <FaUserClock className="inline-block mr-2" />
-                                    Pending Riders
+                                  All Users
                                 </NavLink>
-                            </li>*/}
+                            </li>
                             <li>
                                 <NavLink to="/dashboard/makeAdmin">
                                     <FaUserShield className="inline-block mr-2" />
