@@ -11,8 +11,8 @@
       { "user": "User123", "comment": "Fresh and organic!", "rating": 4.5 }
     ],
     "buttons": {
-      "watchlist": { "label": "Add to Watchlist", "disabled_for": ["admin", "vendor"] },
-      "buy_product": { "label": "Buy Product", "action": "Redirect to checkout" }
+      "watchlist": { "label": "Add to Watchlist", "disabled_for": "admin" },
+      "buy_product": { "label": "Buy Product" }
     }
   },
   {
@@ -27,8 +27,8 @@
       { "user": "User456", "comment": "Crisp and fresh!", "rating": 4 }
     ],
     "buttons": {
-      "watchlist": { "label": "Add to Watchlist", "disabled_for": ["admin", "vendor"] },
-      "buy_product": { "label": "Buy Product", "action": "Redirect to checkout" }
+      "watchlist": { "label": "Add to Watchlist", "disabled_for": "admin" },
+      "buy_product": { "label": "Buy Product" }
     }
   },
   {
@@ -43,8 +43,8 @@
       { "user": "User789", "comment": "Good quality rice.", "rating": 4 }
     ],
     "buttons": {
-      "watchlist": { "label": "Add to Watchlist", "disabled_for": ["admin", "vendor"] },
-      "buy_product": { "label": "Buy Product", "action": "Redirect to checkout" }
+      "watchlist": { "label": "Add to Watchlist", "disabled_for": "admin" },
+      "buy_product": { "label": "Buy Product" }
     }
   },
   {
@@ -59,8 +59,8 @@
       { "user": "User101", "comment": "Clean and well-packed.", "rating": 4.5 }
     ],
     "buttons": {
-      "watchlist": { "label": "Add to Watchlist", "disabled_for": ["admin", "vendor"] },
-      "buy_product": { "label": "Buy Product", "action": "Redirect to checkout" }
+      "watchlist": { "label": "Add to Watchlist", "disabled_for": "admin" },
+      "buy_product": { "label": "Buy Product" }
     }
   },
   {
@@ -75,8 +75,8 @@
       { "user": "User202", "comment": "Very fresh!", "rating": 5 }
     ],
     "buttons": {
-      "watchlist": { "label": "Add to Watchlist", "disabled_for": ["admin", "vendor"] },
-      "buy_product": { "label": "Buy Product", "action": "Redirect to checkout" }
+      "watchlist": { "label": "Add to Watchlist", "disabled_for": "admin" },
+      "buy_product": { "label": "Buy Product" }
     }
   },
   {
@@ -91,8 +91,8 @@
       { "user": "User404", "comment": "Sweet and crunchy!", "rating": 5 }
     ],
     "buttons": {
-      "watchlist": { "label": "Add to Watchlist", "disabled_for": ["admin", "vendor"] },
-      "buy_product": { "label": "Buy Product", "action": "Redirect to checkout" }
+      "watchlist": { "label": "Add to Watchlist", "disabled_for": "admin" },
+      "buy_product": { "label": "Buy Product" }
     }
   },
   {
@@ -107,8 +107,8 @@
       { "user": "User505", "comment": "Perfectly ripe.", "rating": 4 }
     ],
     "buttons": {
-      "watchlist": { "label": "Add to Watchlist", "disabled_for": ["admin", "vendor"] },
-      "buy_product": { "label": "Buy Product", "action": "Redirect to checkout" }
+      "watchlist": { "label": "Add to Watchlist", "disabled_for": "admin" },
+      "buy_product": { "label": "Buy Product" }
     }
   },
   {
@@ -123,8 +123,8 @@
       { "user": "User606", "comment": "Strong aroma and color.", "rating": 5 }
     ],
     "buttons": {
-      "watchlist": { "label": "Add to Watchlist", "disabled_for": ["admin", "vendor"] },
-      "buy_product": { "label": "Buy Product", "action": "Redirect to checkout" }
+      "watchlist": { "label": "Add to Watchlist", "disabled_for": "admin" },
+      "buy_product": { "label": "Buy Product" }
     }
   },
   {
@@ -147,13 +147,9 @@
       }
     ],
     "buttons": {
-      "watchlist": {
-        "label": "Add to Watchlist",
-        "disabled_for": ["admin", "vendor"]
-      },
+      "watchlist": { "label": "Add to Watchlist", "disabled_for": "admin" },
       "buy_product": {
-        "label": "Buy Product",
-        "action": "Redirect to checkout"
+        "label": "Buy Product"
       }
     }
   },
@@ -177,13 +173,9 @@
       }
     ],
     "buttons": {
-      "watchlist": {
-        "label": "Add to Watchlist",
-        "disabled_for": ["admin", "vendor"]
-      },
+      "watchlist": { "label": "Add to Watchlist", "disabled_for": "admin" },
       "buy_product": {
-        "label": "Buy Product",
-        "action": "Redirect to checkout"
+        "label": "Buy Product"
       }
     }
   },
@@ -203,17 +195,12 @@
       {
         "user": "User909",
         "comment": "100% natural, no sugar added!",
-        "rating": 5
-      }
+        "rating": 5 }
     ],
     "buttons": {
-      "watchlist": {
-        "label": "Add to Watchlist",
-        "disabled_for": ["admin", "vendor"]
-      },
+      "watchlist": { "label": "Add to Watchlist", "disabled_for": "admin" },
       "buy_product": {
-        "label": "Buy Product",
-        "action": "Redirect to checkout"
+        "label": "Buy Product"
       }
     }
   }
