@@ -19,6 +19,7 @@ import Alladvertisement from "../Dashboard/AdminPage/Alladvertisement";
 import Allusers from "../Dashboard/AdminPage/Allusers";
 import Allorders from "../Dashboard/AdminPage/Allorders";
 import AdminRoute from "./AdminRoute";
+import Datacard from "../localpage/Datacard";
 
 
 
@@ -30,7 +31,8 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <App /> },
       { path: "SignIn", element: <SignIn /> },
-      { path: "Login", element: <Login /> }
+      { path: "Login", element: <Login /> },
+      { path: "Datacard", element: <Datacard /> }
     ]
   },
   {

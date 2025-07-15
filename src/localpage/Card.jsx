@@ -1,17 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { motion } from "motion/react"
+//import { motion } from "motion/react"
 
 function Card({ products }) {
   if (!products) {
     return <div>No products found.</div>;
   }
 
-  const {  } = products;
+  const {  product_image,product_name, market_name,date, _id} = products;
 
 
   return (
-    <motion.div 
+    <div 
       whileHover={{ scale: 1.1 }}
   whileTap={{ scale: 0.95 }}
   onHoverStart={() => console.log('hover started!')}
@@ -20,14 +20,14 @@ function Card({ products }) {
     <div className="card lg:card-side bg-accent-content shadow-sm">
       <figure>
         <img
-          src={}
-          alt={}
+          src={product_image}
+        //  alt={}
         />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">{title}</h2>
-        <p><strong>Author:</strong> {author}</p>
-        <p><strong>Category:</strong> {category}</p>
+        <h2 className="card-title">{product_name}</h2>
+        <p><strong>marketname:</strong> {market_name}</p>
+        <p><strong>date:</strong> {date}</p>
        
         <div className="card-actions justify-end">
               <Link to={`/Group/Detail/${_id}`}> 
@@ -36,7 +36,7 @@ function Card({ products }) {
         </div>
       </div>
     </div>
-    </motion.div>
+    </div>
   );
 }
 
