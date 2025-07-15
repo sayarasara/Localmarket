@@ -20,7 +20,7 @@ import Allusers from "../Dashboard/AdminPage/Allusers";
 import Allorders from "../Dashboard/AdminPage/Allorders";
 import AdminRoute from "./AdminRoute";
 import Datacard from "../localpage/Datacard";
-
+import Detail from "../localpage/Detail";
 
 
 
@@ -32,9 +32,12 @@ export const router = createBrowserRouter([
       { index: true, element: <App /> },
       { path: "SignIn", element: <SignIn /> },
       { path: "Login", element: <Login /> },
-      { path: "Datacard", element: <Datacard /> }
+      { path: "Datacard", element: <Datacard /> },
+      { path: "Datacard/detail", element: <Detail /> },
+      { path: "Datacard/detail/:id", element: <Detail /> }
     ]
   },
+
   {
     path: "/dashboard",
     element: <PrivateRoute><Dashboard /></PrivateRoute>,

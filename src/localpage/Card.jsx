@@ -30,9 +30,8 @@ function Card({ products }) {
         <p><strong>date:</strong> {date}</p>
        
         <div className="card-actions justify-end">
-              <Link to={`/Group/Detail/${_id}`}> 
-            <button>View Detail</button>
-          </Link>
+          <Link to={`/Datacard/detail/${_id}`}>View Details</Link>
+        
         </div>
       </div>
     </div>
