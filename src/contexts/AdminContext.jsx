@@ -1,63 +1,51 @@
 // src/contexts/AdminContext.jsx
 
-import { createContext, useContext, useState } from "react";
-
+import React, { createContext,  useState, useEffect } from 'react';
+import useAdmin from '../Dashboard/AdminPage/useAdmin';
 
 const AdminContext = createContext();
+
+
+const MyComponent = () => {
+  const Admin = useAdmin();}
+
+
+// Create a custom hook to access the AdminContext
+//export const useAdmin = () => useContext(AdminContext);
 
 export const AdminProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
-  const [advertisements, setAdvertisements] = useState([]);
-  const [orders, setOrders] = useState([]);
 
-  // Create first admin user
-  const initializeAdmin = (email, password) => {
-    const adminUser = {
-      id: 'admin-1',
-      email,
-      role: 'admin',
-      createdAt: new Date().toISOString()
-    };
-    setUsers([adminUser]);
-    return adminUser;
+  useEffect(() => {
+    // Fetch users and products from your backend
+    fetch('/api/users').then(res => res.json()).then(setUsers);
+    fetch('/api/products').then(res => res.json()).then(setProducts);
+  }, []);
+
+  const updateUserRole = (userId, role) => {
+    // Call backend to update user role
+    fetch(`/api/users/${userId}/role`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ role })
+    }).then(() => {
+      setUsers(users => users.map(u => u.id === userId ? { ...u, role } : u));
+    });
   };
 
-  // User management
-  const updateUserRole = (userId, newRole) => {
-    setUsers(users.map(user => 
-      user.id === userId ? { ...user, role: newRole } : user
-    ));
-  };
-
-  // Product management
   const approveProduct = (productId) => {
-    setProducts(products.map(product =>
-      product.id === productId ? { ...product, status: 'approved' } : product
-    ));
-  };
-
-  // Advertisement management
-  const rejectAdvertisement = (adId, reason) => {
-    setAdvertisements(advertisements.map(ad =>
-      ad.id === adId ? { ...ad, status: 'rejected', rejectionReason: reason } : ad
-    ));
+    // Call backend to approve product
+    fetch(`/api/products/${productId}/approve`, { method: 'POST' })
+      .then(() => {
+        setProducts(products => products.map(p => p.id === productId ? { ...p, status: 'approved' } : p));
+      });
   };
 
   return (
-    <AdminContext.Provider value={{
-      users,
-      products,
-      advertisements,
-      orders,
-      initializeAdmin,
-      updateUserRole,
-      approveProduct,
-      rejectAdvertisement
-    }}>
+    <AdminContext.Provider value={{ users, products, updateUserRole, approveProduct }}>
       {children}
     </AdminContext.Provider>
   );
 };
-
-export const useAdmin = () => useContext(AdminContext);
+export default MyComponent;
