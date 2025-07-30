@@ -16,7 +16,7 @@ const Datacard = () => {
       .catch(() => setLoading(false));
   }, []);
   if (loading) return <div>Loading...</div>;
-  if (!products.length) return <div>No books found.</div>;
+  if (!products.length) return <div>No Products found.</div>;
 
   return (
     <div style={{

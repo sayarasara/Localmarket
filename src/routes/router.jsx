@@ -21,6 +21,7 @@ import Allorders from "../Dashboard/AdminPage/Allorders";
 import AdminRoute from "./AdminRoute";
 import Datacard from "../localpage/Datacard";
 import Detail from "../localpage/Detail";
+import Bevendor from "../Dashboard/Vendor/Bevendor";
 
 
 
@@ -33,6 +34,8 @@ export const router = createBrowserRouter([
       { path: "SignIn", element: <SignIn /> },
       { path: "Login", element: <Login /> },
       { path: "Datacard", element: <Datacard /> },
+      { path: "Datacard", element: <Datacard /> },
+      { path: "Bevendor", element: <Bevendor /> },
       { path: "Datacard/detail", element: <Detail /> },
       { path: "Datacard/detail/:id", element: <Detail /> }
     ]

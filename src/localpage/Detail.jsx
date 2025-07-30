@@ -1,5 +1,7 @@
+//mport { Modal } from 'bootstrap';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Mymodal from '../modal/Mymodal'; // Adjust the import path as necessary
 
 const Detail = () => {
   const { id } = useParams(); // Get product ID from URL
@@ -29,6 +31,10 @@ const Detail = () => {
     alert('Redirecting to payment...');
     // window.location.href = 'https://your-payment-url.com';
   };
+  const closeModal = () => {
+    setIsOpen(false)
+  }
+
 
   if (loading) return <div>Loading...</div>;
   if (!product) return <div>Product not found.</div>;
@@ -58,9 +64,17 @@ const Detail = () => {
         >
           ⭐ Add to Watchlist
         </button>
-        <button onClick={handleBuyProduct}>
+        <button 
+        onClick={handleBuyProduct}
+        >
           🛒 Buy Product
         </button>
+        <Mymodal
+    product={product}
+            closeModal={closeModal}
+          //  isOpen={isOpen}
+            fetchproduct={product}
+        />
       </div>
     </div>
   );
