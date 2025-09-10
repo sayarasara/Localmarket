@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router';
 import useAuth from '../Hooks/useAuth';
 import SocialLogin from './SocialLogin';
+import { toast } from 'react-toastify';
 
 
 const Login = () => {
@@ -12,18 +13,26 @@ const Login = () => {
     const navigate = useNavigate();
     const from = location.state?.from || '/';
 
-    const onSubmit = data => {
-        signIn(data.email, data.password)
-            .then(result => {
-                console.log(result.user);
-                navigate(from);
-            })
-            .catch(error => console.log(error))
+    const onSubmit = async(data) => {
+        try {
+            //User Login
+            await signIn(data.email, data.password)
+
+            navigate(from, { replace: true })
+            toast.success('Login Successful')
+        } catch (err) {
+            console.log(err)
+            toast.error(err?.message)
+        }
+  
+      
+         
     }
+   
 
     return (
-        <div className="card bg-blue-200 text-blue-900 w-full max-w-sm shrink-0 shadow-2xl">
-            <div className="card-body">
+        <div className="card bg-slate-200 text-blue-900 w-full text-center max-w-sm shrink-0 shadow-2xl">
+            <div className="card-body content-center">
                 <h1 className="text-5xl font-bold">Please Login</h1>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <fieldset className="fieldset">
@@ -54,7 +63,7 @@ const Login = () => {
 
                         <button className="btn btn-primary text-black mt-4">Login</button>
                     </fieldset>
-                    <p><small>New to this website? <Link state={{ from }} className="btn btn-link" to="/register">Register</Link></small></p>
+                    <p><small>New to this website? <Link state={{ from }} className="btn btn-link" to="/register">Sign In</Link></small></p>
                 </form>
                 <SocialLogin></SocialLogin>
             </div>

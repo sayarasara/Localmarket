@@ -1,14 +1,20 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router';
-import { FaHome, FaBoxOpen, FaMoneyCheckAlt, FaSearchLocation, FaUserCheck, FaUserClock, FaUserShield, FaMotorcycle, FaTasks, FaCheckCircle, FaWallet } from 'react-icons/fa';
+import { FaHome, FaBoxOpen, FaMoneyCheckAlt, FaSearchLocation, FaUserCheck, FaUserClock, FaUserShield, FaMotorcycle, FaTasks, FaCheckCircle, FaWallet, FaUser } from 'react-icons/fa';
 import { AiFillPieChart } from 'react-icons/ai'; // <-- Correct import for AiFillPieChart
 import UserRole from '../Hooks/UserRole';
 
 
 const Dashboardlayout = () => {
 
-    const { role, roleLoading } = UserRole();
+    const [role, roleLoading] = UserRole();
     console.log(role);
+
+if (roleLoading) {
+  return <div>Loading...</div>;
+} 
+
+
 
     return (
         <div className="drawer lg:drawer-open">
@@ -39,17 +45,6 @@ const Dashboardlayout = () => {
                 </div>
                 {/* Page content here */}
                 <Outlet></Outlet>
-                <div className="card bg-base-100 w-96 shadow-sm">
-  <div className="card-body">
-    <h2 className="card-title">Card Title</h2>
-    <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
-  </div>
-  <figure>
-    <img
-      src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-      alt="Shoes" />
-  </figure>
-</div>
                 {/* Page content here */}
 
             </div>
@@ -58,14 +53,21 @@ const Dashboardlayout = () => {
                 <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
                     {/* Sidebar content here */}
                 
+                    {/* general user links */}
                     <li>
                         <NavLink to="/App">
                             <FaHome className="inline-block mr-2" />
                             Home
                         </NavLink>
                     </li>
-                   <li>
-                        <NavLink to="/dashboard/MyParcels">
+                    <li>
+                        <NavLink to="/deshboard/Profile">
+                            <FaUser className="inline-block mr-2" />
+                            Profile
+                        </NavLink>
+                    </li>
+
+                   <li>                  <NavLink to="/dashboard/MyParcels">
                             <FaBoxOpen className="inline-block mr-2" />
                             My Parcels
                         </NavLink>
@@ -76,14 +78,16 @@ const Dashboardlayout = () => {
                           Manageitme
                         </NavLink>
                     </li>
+                    {/* general user links */}
                     <li>
                     <NavLink to="/dashboard/Viewchart">
                         <AiFillPieChart className="inline-block mr-2" />
                         View Chart
                     </NavLink>
                     </li>
-                    {/* rider links */}
-                    {!roleLoading && role === 'rider' && <>
+                  
+                   {/* vendor links */}
+                    {!roleLoading && role === 'vendor' && <>
                        <li>
                             <NavLink to="/dashboard/Addproducts">
                                 <FaTasks className="inline-block mr-2" />

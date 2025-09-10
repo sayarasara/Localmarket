@@ -54,6 +54,8 @@ const SignIn = () => {
             .catch(error => {
                 console.error(error);
             })
+
+  
     }
 
     const handleImageUpload = async (e) => {
@@ -65,15 +67,14 @@ const SignIn = () => {
 
 
         const imagUploadUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_upload_key}`
-        const res = await axios.post(imagUploadUrl, formData)
+        const res = await axios.post(imagUploadUrl, formData);
 
         setProfilePic(res.data.data.url);
-
     }
 
     return (
 
-        <div className="card bg-blue-200 w-full max-w-sm shrink-0 shadow-2xl text-blue-900 ">
+        <div className="card bg-slate-200 w-full max-w-sm shrink-0 shadow-2xl text-blue-900 ">
             <div className="card-body">
                 <h1 className="text-5xl font-bold">Create Account</h1>
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -111,7 +112,7 @@ const SignIn = () => {
                         }
 
                         <div><a className="link link-hover">Forgot password?</a></div>
-                        <button className="btn btn-primary text-black mt-4">Register</button>
+                        <button className="btn btn-primary text-black mt-4">Sign In</button>
                     </fieldset>
                     <p><small>Already have an account? <Link className="btn btn-link" to="/login">Login</Link></small></p>
                 </form>

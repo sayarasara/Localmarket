@@ -1,21 +1,17 @@
-import { Navigate } from "react-router";
-import useAuth from "../Hooks/useAuth";
+import { Navigate, useLocation } from "react-router";
 import UserRole from "../Hooks/UserRole";
 
 
+
 const AdminRoute = ({ children }) => {
-    const { user, loading } = useAuth();
-    const { role, roleLoading } = UserRole();
+  const [role, isRoleLoading] = UserRole()
+  const location = useLocation()
+  console.log(location)
+  console.log('I was here, in Admin route')
+  if (isRoleLoading) return <div>Loading...</div>;
+  if (role === 'admin') return children;
+  // If role is null or not admin, navigate to home
+  return <Navigate to='/' replace='true' />
+}
 
-    if (loading || roleLoading) {
-        return <span className="loading loading-spinner loading-xl"></span>
-    }
-
-    if (!user || role !== 'admin') {
-        return <Navigate state={{ from: location.pathname }} to="/forbidden"></Navigate>
-    }
-
-    return children;
-};
-
-export default AdminRoute;
+export default AdminRoute

@@ -1,15 +1,47 @@
-//mport { Modal } from 'bootstrap';
+//import { Modal } from 'bootstrap';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Mymodal from '../modal/Mymodal'; // Adjust the import path as necessary
+
+import UserRole from '../Hooks/UserRole';
+//import useAuth from '../Hooks/useAuth';
 
 const Detail = () => {
   const { id } = useParams(); // Get product ID from URL
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  //  const { user } = useAuth()
+  const [role] = UserRole();
 
-  // Simulate user role (replace with your auth logic)
-  const role = 'user'; // Change to 'admin' or 'vendor' to test button disabling
+  // Utility function to add product to watchlist in localStorage
+  const addToWatchlist = (productToAdd) => {
+    const existingWatchlist = JSON.parse(localStorage.getItem('userWatchlist') || '[]');
+
+    // Check if product is already in watchlist
+    const isAlreadyInWatchlist = existingWatchlist.some(item => item.id === productToAdd.id);
+
+    if (!isAlreadyInWatchlist) {
+      const updatedWatchlist = [...existingWatchlist, productToAdd];
+      localStorage.setItem('userWatchlist', JSON.stringify(updatedWatchlist));
+      alert('Added to watchlist! Check your watchlist in the Dashboard.');
+    } else {
+      alert('Product is already in your watchlist!');
+    }
+  };
+
+  const handleWatchlist = () => {
+    if (product) {
+      addToWatchlist({
+        id: product.id || id,
+        product_name: product.product_name
+      });
+    }
+  };
+
+
+
+ // const [ isRoleLoading] = UserRole()
+ // Simulate user role (replace with your auth logic)
+ // const role = 'user'; // Change to 'admin' or 'vendor' to test button disabling
 
   useEffect(() => {
     fetch(`http://localhost:3000/products/${id}`)
@@ -22,18 +54,17 @@ const Detail = () => {
       .catch(() => setLoading(false));
   }, [id]);
 
-  // Simple handlers
-  const handleWatchlist = () => {
-    alert('Added to watchlist!');
-  };
+  
+//  const handleWatchlist = () => {
+  //  alert('Added to watchlist!'); };
 
   const handleBuyProduct = () => {
     alert('Redirecting to payment...');
     // window.location.href = 'https://your-payment-url.com';
   };
-  const closeModal = () => {
-    setIsOpen(false)
-  }
+//  const closeModal = () => {
+//    setIsOpen(false)
+//  }
 
 
   if (loading) return <div>Loading...</div>;
@@ -64,17 +95,11 @@ const Detail = () => {
         >
           ⭐ Add to Watchlist
         </button>
-        <button 
+        <button
         onClick={handleBuyProduct}
         >
           🛒 Buy Product
         </button>
-        <Mymodal
-    product={product}
-            closeModal={closeModal}
-          //  isOpen={isOpen}
-            fetchproduct={product}
-        />
       </div>
     </div>
   );

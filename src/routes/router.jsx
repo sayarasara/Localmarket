@@ -22,6 +22,7 @@ import AdminRoute from "./AdminRoute";
 import Datacard from "../localpage/Datacard";
 import Detail from "../localpage/Detail";
 import Bevendor from "../Dashboard/Vendor/Bevendor";
+import Profile from "../Dashboard/common/Profile";
 
 
 
@@ -36,8 +37,10 @@ export const router = createBrowserRouter([
       { path: "Datacard", element: <Datacard /> },
       { path: "Datacard", element: <Datacard /> },
       { path: "Bevendor", element: <Bevendor /> },
+      { path: "Bevendor", element: <Bevendor /> },
       { path: "Datacard/detail", element: <Detail /> },
-      { path: "Datacard/detail/:id", element: <Detail /> }
+      { path: "Datacard/detail/:id", element: <PrivateRoute><Detail /></PrivateRoute> },
+      {path: "Profile", element: <Profile />}
     ]
   },
 
@@ -45,14 +48,18 @@ export const router = createBrowserRouter([
     path: "/dashboard",
     element: <PrivateRoute><Dashboard /></PrivateRoute>,
     children: [
+      { path: "App", element: <App /> },
+     // { path: "Profile", element: <Profile /> },
       { path: "MyParcels", element: <MyParcels /> },
       { path: "Manageitme", element: <Manageitme /> },
       { path: "Viewchart", element: <Viewchart /> },
+      
       { path: "MyEarnings", element: <VendorRoute><MyEarnings /></VendorRoute> },
       { path: "Addadvertisement", element: <VendorRoute><Addadvertisement /></VendorRoute> },
       { path: "Addproducts", element: <VendorRoute><Addproducts /></VendorRoute> },
       { path: "Myproducts", element: <VendorRoute><Myproducts /></VendorRoute> },
       { path: "Myadvertisement", element: <VendorRoute><Myadvertisement /></VendorRoute> },
+
       { path: "Alladvertisement", element: <AdminRoute><Alladvertisement /></AdminRoute> },
       { path: "MakeAdmin", element: <AdminRoute><MakeAdmin /></AdminRoute> },
       { path: "Allusers", element: <AdminRoute><Allusers /></AdminRoute> },

@@ -16,7 +16,7 @@ function Card({ products }) {
   whileTap={{ scale: 0.95 }}
   onHoverStart={() => console.log('hover started!')}
     
-    className="bg-green-100 " style={{ boxShadow: "0 4px 16px 0 rgba(16, 78, 36, 0.5)" }} >
+    className="bg-slate-100 " style={{ boxShadow: "0 4px 16px 0 rgba(71, 130, 134, 0.5)" }} >
     <div className="card lg:card-side bg-accent-content shadow-sm">
       <figure>
         <img

@@ -24,9 +24,6 @@ const Addproducts = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
-  // Categories and reading status options
- // const categories = ['Fiction', 'Non-Fiction', 'Fantasy', 'Islamic', 'Biography', 'History'];
- // const readingStatuses = ['Read', 'Reading', 'Want-to-Read'];
 
   // Handle input changes
   const handleChange = (e) => {
@@ -56,8 +53,8 @@ e.preventDefault();
     if (!formData.    product_name
  || isNaN(formData.    product_name
 )) newErrors.    product_name
- = 'Valid page count is required';
-    if (!formData.product_image) newErrors.product_image = 'Author is required';
+ = 'Valid amount of product is required';
+    if (!formData.product_image) newErrors.product_image = 'Vendor is required';
     if (!formData.date) newErrors.date = 'Overview is required';
 
     if (Object.keys(newErrors).length > 0) {
@@ -69,11 +66,10 @@ e.preventDefault();
     console.log(formData)
     try {
       // In a real app, you would send this to your backend API
-      await axios.post('https://book-server-theta.vercel.app/file', {
+      await axios.post('', {
         title: formData.market_name,
         coverPhoto: formData.cover_photo,
-        totalPages: parseInt(formData.    product_name
-),
+        totalAmount: parseInt(formData.    product_name),
         author: formData.product_image,
         category: formData.book_category,
        
@@ -87,13 +83,11 @@ e.preventDefault();
       setFormData({
         market_name: '',
         cover_photo: '',
-            product_name
-: '',
+        product_name: '',
         product_image: '',
         user_email: '',
         user_name: '',
-        book_category: 'Fiction',
-      
+        price: '',
         date: '',
       });
 
@@ -109,11 +103,11 @@ e.preventDefault();
 
   return (
     <div className='bg-green-100' style={styles.container}>
-      <h2 style={styles.heading}>Add New Book</h2>
+      <h2 style={styles.heading}>Add New Product</h2>
       
       {submitSuccess && (
         <div style={styles.successMessage}>
-          Book added successfully!
+          Product added successfully!
         </div>
       )}
 
@@ -157,14 +151,14 @@ e.preventDefault();
         {/* Total Pages */}
         <div style={styles.formGroup}>
           <label style={styles.label}>
-            Total Pages:
+            Amount of Product:
             <input
               type="number"
               name="product_name"
               value={formData.product_name}
               onChange={handleChange}
               style={styles.input}
-              min="1"
+              min="10tk"
             />
           </label>
           {errors.    product_name
@@ -175,12 +169,12 @@ e.preventDefault();
         {/* Author */}
         <div style={styles.formGroup}>
           <label style={styles.label}>
-            Author:
+            Market Name:
             <input
               type="text"
               name="product_image"
               value={formData.product_image}
-              onChange={handleChange}
+              onChange={handleChange} 
               style={styles.input}
             />
           </label>
@@ -249,22 +243,6 @@ e.preventDefault();
           </label>
         </div>
 
-        {/* Book Overview */}
-        <div style={styles.formGroup}>
-          <label style={styles.label}>
-            Book Overview:
-            <textarea
-              name="date"
-              value={formData.date}
-              onChange={handleChange}
-              style={styles.textarea}
-              rows="4"
-            />
-          </label>
-          {errors.date && <span style={styles.error}>{errors.date}</span>}
-        </div>
-
-
 
         {/* Submit Button */}
         <button 
@@ -286,7 +264,7 @@ const styles = {
     margin: '40px auto',
     padding: '30px',
     fontFamily: 'Arial, sans-serif',
-    background: 'rgba(11, 202, 157, 0.14)',
+    background: 'rgba(7, 88, 142, 0.14)',
     borderRadius: '12px',
     boxShadow: '0 4px 16px rgba(0,0,0,0.08)'
   },
@@ -336,7 +314,7 @@ const styles = {
   },
   submitButton: {
     padding: '12px 20px',
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#81bde7ff',
     color: 'white',
     border: 'none',
     borderRadius: '4px',
@@ -344,7 +322,7 @@ const styles = {
     fontSize: '16px',
     marginTop: '10px',
     ':hover': {
-      backgroundColor: '#45a049'
+      backgroundColor: '#8ccaeaff'
     },
     ':disabled': {
       backgroundColor: '#cccccc',

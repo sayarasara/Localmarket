@@ -1,54 +1,118 @@
+import React, { useEffect, useState } from 'react'
+import useAuth from '../Hooks/useAuth'
+import { toast } from 'react-toastify'
 
-import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import useAuth from '../Hooks/useAuth';
+const Mymodal = (product,fetchproduct) => {
 
-
-
-
-function Mymodal({ product, closeModal, isOpen}) {
     const { user } = useAuth()
   console.log(user)
-   const { name, price, _id, vendor, image } = product || {}
+  const { name, market_name, price, _id, vendor, image ,quantity} = product || {}
   const [selectedQuantity, setSelectedQuantity] = useState(1)
   const [totalPrice, setTotalPrice] = useState(price)
   const [orderData, setOrderData] = useState({
-    vendor_info: vendor,
+    vendor,
     productId: _id,
-    quantity: 1,
+    quantity: 10,
     price: price,
     product_name: name,
-    plantImage: image,
-    userId: user?._id,
-  });
-  const [show, setShow] = useState(false);
+    market_name: market_name,
+    product_image: image,
+  })
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  useEffect(() => {
+    if (user)
+      setOrderData(prev => {
+        return {
+          ...prev,
+          customer: {
+            name: user?.displayName,
+            email: user?.email,
+            image: user?.photoURL,
+          },
+        }
+      })
+  }, [user])
+
+  const handleQuantity = value => {
+    const totalQuantity = parseInt(value)
+    if (totalQuantity > quantity)
+      return toast.error('You cannot purchase more.')
+    const calculatedPrice = totalQuantity * price
+    setSelectedQuantity(totalQuantity)
+    setTotalPrice(calculatedPrice)
+
+    setOrderData(prev => {
+      return {
+        ...prev,
+        price: calculatedPrice,
+        quantity: totalQuantity,
+      }
+    })
+  }
 
   return (
-    <>
-      <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button>
+    <div>
+      {/* The button to open modal */}
+<a href="#my_modal_8" className="btn">Buy Now</a>
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
-  );
+{/* Put this part before </body> tag */}
+<div className="modal" role="dialog" id="my_modal_8">
+  <div className="modal-box">
+    <h3 className="text-lg font-bold">Hello!</h3>
+    <p className="py-4">This modal works with anchor links</p>
+    <div className="modal-action">
+      <a href="#" className="btn">Yay!</a>
+    </div>
+    <div className='mt-2'>
+              <p className='text-sm text-gray-500'>product: {name}</p>
+            </div>
+            <div className='mt-2'>
+ <p className='text-sm text-gray-500'>market: {market_name}</p>
+            </div>
+            <div className='mt-2'>
+              <p className='text-sm text-gray-500'>
+                Customer: {user?.displayName}
+              </p>
+            </div>
+
+            <div className='mt-2'>
+              <p className='text-sm text-gray-500'>Price Per Unit: $ {price}</p>
+            </div>
+            <div className='mt-2'>
+              <p className='text-sm text-gray-500'>
+                Available Quantity: {quantity}
+              </p>
+            </div>
+            <hr className='mt-2' />
+            <p>Order Info:</p>
+            <div className='mt-2'>
+              <input
+                value={selectedQuantity}
+                onChange={e => handleQuantity(e.target.value)}
+                type='number'
+                min={1}
+                className='border px-3 py-1'
+              />
+            </div>
+             <div className='mt-2'>
+              <p className='text-sm text-gray-500'>
+                Selected Quantity: {selectedQuantity}
+              </p>
+            </div>
+            <div className='mt-2'>
+              <p className='text-sm text-gray-500'>Total Price: {totalPrice}</p>
+            </div>
+            
+              <CheckoutForm
+                totalPrice={totalPrice}
+                orderData={orderData}
+                fetchproduct={fetchproduct}
+              />
+          
+  </div>
+</div>
+    </div>
+  )
 }
 
-export default Mymodal;
+export default Mymodal

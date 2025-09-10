@@ -30,10 +30,10 @@ const Navbar = () => {
         }
 
         <li><NavLink to="/Datacard">Datacard</NavLink></li>
-        <li><NavLink to="/about">About Us</NavLink></li>
+        <li><NavLink to="/Profile">profile</NavLink></li>
     </>
     return (
-        <div className="navbar bg-base-100 shadow-sm">
+        <div className="navbar bg-slate-200 shadow-sm">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -45,9 +45,12 @@ const Navbar = () => {
                         {navItems}
                     </ul>
                 </div>
-                <span className="btn btn-ghost text-xl">
-  
-                </span>
+                 <div className="w-19 rounded-full">
+          <img  className='rounded-full'
+            alt=""
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHVejFXGUWyODSZM71eFGihY_KX7bvTnVSlQ&s
+            "/>
+            </div>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
