@@ -8,7 +8,7 @@ import UserRole from '../Hooks/UserRole';
 const Dashboardlayout = () => {
 
     const [role, roleLoading] = UserRole();
-    console.log(role);
+   // console.log(role);
 
 if (roleLoading) {
   return <div>Loading...</div>;
@@ -17,7 +17,7 @@ if (roleLoading) {
 
 
     return (
-        <div className="drawer lg:drawer-open">
+        <div className="drawer lg:drawer-open italic">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content flex flex-col">
 
@@ -55,13 +55,13 @@ if (roleLoading) {
                 
                     {/* general user links */}
                     <li>
-                        <NavLink to="/App">
+                        <NavLink to="/">
                             <FaHome className="inline-block mr-2" />
                             Home
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/deshboard/Profile">
+                        <NavLink to="/Profile">
                             <FaUser className="inline-block mr-2" />
                             Profile
                         </NavLink>
@@ -69,7 +69,7 @@ if (roleLoading) {
 
                    <li>                  <NavLink to="/dashboard/MyParcels">
                             <FaBoxOpen className="inline-block mr-2" />
-                            My Parcels
+                            My Orders
                         </NavLink>
                     </li>
                    <li>
@@ -94,6 +94,12 @@ if (roleLoading) {
                                 Add Products
                             </NavLink>
                         </li>
+                       <li>
+                            <NavLink to="/dashboard/Myproducts">
+                                <FaTasks className="inline-block mr-2" />
+                                My Products
+                            </NavLink>
+                        </li>
                            <li>
                         <NavLink to="/dashboard/Addadvertisement">
                             <FaSearchLocation className="inline-block mr-2" />
@@ -106,12 +112,7 @@ if (roleLoading) {
                                 My Advertisements
                             </NavLink>
                         </li>
-                        <li>
-                            <NavLink to="/dashboard/my-earnings">
-                                <FaWallet className="inline-block mr-2" />
-                                My Earnings
-                            </NavLink>
-                        </li>
+                    
                     </>}
 
 
@@ -140,7 +141,7 @@ if (roleLoading) {
                             <li>
                                 <NavLink to="/dashboard/makeAdmin">
                                     <FaUserShield className="inline-block mr-2" />
-                                    Make Admin
+                                    All Products
                                 </NavLink>
                             </li>
                         </>

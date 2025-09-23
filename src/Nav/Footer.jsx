@@ -4,24 +4,23 @@ import React from 'react';
 const Footer = () => {
     return (
 <>
-<footer className="footer bg-base-200 text-base-content border-base-300 border-t px-10 py-4">
+<footer className="footer bg-slate-200 italic text-base-content border-base-300 border-t px-10 py-4">
   <aside className="grid-flow-col items-center">
-           <div className="w-50 rounded-full">
-          <img  
+            <div className="w-20 rounded-full">
+          <img  className='rounded-full'
             alt=""
-            src="https://logopond.com/logos/80904a7ca0455bbf5183883af9ecc4d2.png
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHVejFXGUWyODSZM71eFGihY_KX7bvTnVSlQ&s
             "/>
             </div>
     <p>
-      ACME Industries Ltd.
-      <br />
+      Local Market Ltd.
+      <br/>
       Providing reliable tech since 1992
     </p>
   </aside>
   <nav className="md:place-self-center md:justify-self-end">
     <div className="grid grid-flow-col gap-4">
-      <a>
-        <svg
+      <a>        <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"

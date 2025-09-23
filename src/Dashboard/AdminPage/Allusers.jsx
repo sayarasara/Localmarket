@@ -1,59 +1,98 @@
-import React from 'react'
+
+import { useState } from 'react';
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import AllusersModal from './AllusersModal';
+import { useQuery } from '@tanstack/react-query';
 
+const Allusers = () => {
+  const axiosSecure = useAxiosSecure();
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-/*const Allusers = ({ user }) => {
-  const { email, role, status } = user*/
+  // Fetch all users
+  const { data: users = [], refetch, isLoading } = useQuery({
+    queryKey: ['users'],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get('/users');
+      return data;
+    }
+  });
 
-  const Allusers = ({ user = {} }) => {
-  const { email } = user;
-  const { role , status} = user;
-  
+  const openModal = (user) => {
+    setSelectedUser(user);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedUser(null);
+    setIsModalOpen(false);
+  };
+
+  if (isLoading) {
+    return <div className="text-center py-8">Loading users...</div>;
+  }
 
   return (
-    <div>
-      <table>
-        <tr>
-      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <p className='text-gray-900 whitespace-no-wrap'>{email}</p>
-      </td>
-      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <p className='text-gray-900 whitespace-no-wrap'>{role}</p>
-      </td>
-      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <p
-          className={`${
-            status === 'requested'
-              ? 'text-yellow-500'
-              : status === 'verified'
-              ? 'text-green-500'
-              : 'text-red-500'
-          } whitespace-no-wrap`}
-        >
-          {status ? status : 'Unavailable'}
-        </p>
-      </td>
+    <div className="container mx-auto px-4 py-8">
+      <h2 className="text-2xl font-bold mb-6">All Users</h2>
+      
+      <div className="overflow-x-auto">
+        <table className="table table-zebra w-full">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((user, index) => (
+              <tr key={user._id}>
+                <td>{index + 1}</td>
+                <td>{user.email}</td>
+                <td>
+                  <span className={`badge ${
+                    user.role === 'admin' ? 'badge-primary' :
+                    user.role === 'vendor' ? 'badge-secondary' :
+                    'badge-neutral'
+                  }`}>
+                    {user.role}
+                  </span>
+                </td>
+                <td>
+                  <span className={`badge ${
+                    user.status === 'verified' ? 'badge-success' : 'badge-warning'
+                  }`}>
+                    {user.status || 'pending'}
+                  </span>
+                </td>
+                <td>
+                  <button
+                    onClick={() => openModal(user)}
+                    className="btn btn-sm btn-outline"
+                  >
+                    Edit Role
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
-      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <span
-        
-          className='relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight'
-        >
-          <span
-            aria-hidden='true'
-            className='absolute inset-0 bg-green-200 opacity-50 rounded-full'
-          ></span>
-        </span>
-        {/* Modal */}
-   <AllusersModal
-   role = {role}
-   userEmail = {email}/>
-        
-      </td>
-      </tr>
-      </table>
+      {/* Modal */}
+      {isModalOpen && selectedUser && (
+        <AllusersModal
+          user={selectedUser}
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          refetchUsers={refetch}
+        />
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Allusers
+export default Allusers;

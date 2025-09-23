@@ -1,50 +1,122 @@
 //import { Modal } from 'bootstrap';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-
+import { useNavigate, useParams } from 'react-router-dom';
 import UserRole from '../Hooks/UserRole';
+import useAuth from '../Hooks/useAuth';
+
 //import useAuth from '../Hooks/useAuth';
 
 const Detail = () => {
   const { id } = useParams(); // Get product ID from URL
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
-  //  const { user } = useAuth()
+    const { user } = useAuth()
   const [role] = UserRole();
 
-  // Utility function to add product to watchlist in localStorage
-  const addToWatchlist = (productToAdd) => {
-    const existingWatchlist = JSON.parse(localStorage.getItem('userWatchlist') || '[]');
 
-    // Check if product is already in watchlist
-    const isAlreadyInWatchlist = existingWatchlist.some(item => item.id === productToAdd.id);
+
+  const getWatchlistKey = () => {
+    return user ? `watchlist_${user.email}` : 'watchlist_guest';
+  };
+
+  // User-specific orders key
+  const getOrdersKey = () => {
+    return user ? `orders_${user.email}` : 'orders_guest';
+  };
+
+
+  // Add to watchlist function with user-specific key
+  const addToWatchlist = (productToAdd) => {
+    const watchlistKey = getWatchlistKey();
+    const existingWatchlist = JSON.parse(localStorage.getItem(watchlistKey) || '[]');
+
+    const isAlreadyInWatchlist = existingWatchlist.some(item => item._id === productToAdd._id);
 
     if (!isAlreadyInWatchlist) {
-      const updatedWatchlist = [...existingWatchlist, productToAdd];
-      localStorage.setItem('userWatchlist', JSON.stringify(updatedWatchlist));
-      alert('Added to watchlist! Check your watchlist in the Dashboard.');
+      const updatedWatchlist = [...existingWatchlist, {
+        _id: productToAdd._id,
+        product_name: productToAdd.product_name,
+        market_name: productToAdd.market_name,
+        product_image: productToAdd.product_image,
+        date_added: new Date().toLocaleDateString(),
+        userEmail: user?.email || 'guest', // Store which user added it
+        ...productToAdd
+      }];
+      localStorage.setItem(watchlistKey, JSON.stringify(updatedWatchlist));
+      alert('✅ Added to your watchlist! Check your watchlist in the Dashboard.');
     } else {
-      alert('Product is already in your watchlist!');
+      alert('ℹ️ Product is already in your watchlist!');
     }
   };
 
   const handleWatchlist = () => {
     if (product) {
       addToWatchlist({
-        id: product.id || id,
-        product_name: product.product_name
+        _id: product._id || id,
+        product_name: product.product_name,
+        market_name: product.market_name,
+        product_image: product.product_image,
+        ...product
       });
     }
   };
 
+  // Add to orders function with user-specific key
+  const addToOrders = (productToAdd) => {
+    const ordersKey = getOrdersKey();
+    const existingOrders = JSON.parse(localStorage.getItem(ordersKey) || '[]');
+    
+    const newOrder = {
+      _id: Date.now().toString(),
+      productId: productToAdd._id || id,
+      product_name: productToAdd.product_name,
+      market_name: productToAdd.market_name,
+      price: productToAdd.price,
+      totalAmount: productToAdd.price,
+      quantity: 1,
+      orderDate: new Date().toISOString(),
+      status: 'pending',
+      userEmail: user?.email || 'guest' // Store which user placed the order
+    };
 
+    const updatedOrders = [...existingOrders, newOrder];
+    localStorage.setItem(ordersKey, JSON.stringify(updatedOrders));
+    alert('✅ Order placed successfully! Check your orders in My Parcels.');
+  };
 
- // const [ isRoleLoading] = UserRole()
- // Simulate user role (replace with your auth logic)
- // const role = 'user'; // Change to 'admin' or 'vendor' to test button disabling
+  const handleBuyProduct = () => {
+    if (product) {
+      addToOrders(product);
+    }
+  };
 
   useEffect(() => {
-    fetch(`http://localhost:3000/products/${id}`)
+    // For demo purposes, create a simple product object
+    const demoProduct = {
+      _id: id,
+      product_name: `Product ${id}`,
+      market_name: `Market ${id}`,
+      price: 10.99,
+      date: new Date().toISOString().split('T')[0],
+      emoji: "📦",
+      vendor_info: {
+        name: `Vendor ${id}`,
+        role: "vendor",
+        contact: "vendor@example.com"
+      },
+      user_reviews: [
+        { user: "Customer", comment: "Great product!", rating: 5 }
+      ]
+    };
+    
+    setProduct(demoProduct);
+    setLoading(false);
+  }, [id]);
+
+
+
+  useEffect(() => {
+    fetch(`https://local-market-server-self.vercel.app/products/${id}`)
       .then(res => res.json())
       .then(data => {
         console.log('API response:', data); // <-- Add this line
@@ -54,11 +126,10 @@ const Detail = () => {
       .catch(() => setLoading(false));
   }, [id]);
 
-  
-//  const handleWatchlist = () => {
-  //  alert('Added to watchlist!'); };
 
-  const handleBuyProduct = () => {
+const navigate =useNavigate();
+  const handleProduct = () => {
+    navigate('/payment');
     alert('Redirecting to payment...');
     // window.location.href = 'https://your-payment-url.com';
   };
@@ -89,14 +160,19 @@ const Detail = () => {
         </ul>
       </div>
       <div style={{ display: 'flex', gap: 12, marginTop: 20 }}>
-        <button
+        <button className='btn bg-slate-400'
           disabled={role === 'admin' || role === 'vendor'}
           onClick={handleWatchlist}
         >
           ⭐ Add to Watchlist
         </button>
-        <button
+        <button className='btn bg-slate-400'
         onClick={handleBuyProduct}
+        >
+          Order
+        </button>
+        <button
+        onClick={handleProduct}
         >
           🛒 Buy Product
         </button>

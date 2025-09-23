@@ -18,22 +18,19 @@ const Navbar = () => {
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/signIn">SignIn</NavLink></li>
         <li><NavLink to="/Login">LogIn</NavLink></li>
-    
 
         {
             user && <>
     <li><NavLink to="/dashboard">Dashboard</NavLink></li>
-    <li><NavLink to="/Bevendor">Be A Vendor</NavLink></li>
-
-
+    <li><NavLink to="/Profile">profile</NavLink></li>
             </>
         }
 
-        <li><NavLink to="/Datacard">Datacard</NavLink></li>
-        <li><NavLink to="/Profile">profile</NavLink></li>
+        <li><NavLink to="/Datacard">All Products</NavLink></li>
+        <li><NavLink to="/MyEarnings">Offers</NavLink></li>
     </>
     return (
-        <div className="navbar bg-slate-200 shadow-sm">
+        <div className="navbar bg-slate-200 italic shadow-sm">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -59,9 +56,9 @@ const Navbar = () => {
             </div>
             <div className="navbar-end">
                 {user ?
-                    <button onClick={handleLogOut} className='btn btn-primary text-black'>Log Out</button>
+                    <button onClick={handleLogOut} className='btn bg-slate-400 text-black'>Log Out</button>
                     :
-                    <Link to="/login" className='btn btn-primary  text-black'>Login</Link>}
+                    <Link to="/login" className='btn bg-slate-400 text-black'>Login</Link>}
             </div>
         </div>
     );

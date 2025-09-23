@@ -1,43 +1,65 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
-import axios from "axios";
 
 
-const Addproducts = () => {
-  const { user } = useContext(AuthContext); // Get user from AuthContext
-  console.log('token in the context', user.accessToken)
-
-  // Form state
-  const [formData, setFormData] = useState({
-    market_name: '',
-    product_name: '',
-    product_image: '',
-    user_email: user?.email || '', // This would come from auth context
-    user_name: '',      // This would come from auth context
-    price: '',
-    date: '',
-  
-  });
-
-  // Form validation state
-  const [errors, setErrors] = useState({});
+const AddProduct = () => {
+  const { user } = useContext(AuthContext);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
+  // Form state
+  const [formData, setFormData] = useState({
+    vendor_email: user?.email || '',
+    vendor_name: user?.displayName || '',
+    market_name: '',
+    market_description: '',
+    product_name: '',
+    product_image: '',
+    price: '',
+    product_description: '',
+    status: 'pending',
+    date: new Date().toISOString().split('T')[0],
+    prices: [{ date: new Date().toISOString().split('T')[0], price: '' }]
+  });
+
+  const [errors, setErrors] = useState({});
 
   // Handle input changes
   const handleChange = (e) => {
-e.preventDefault();
-
-//console.log(data);
-
-  
-
     const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value
     });
+  };
+
+  // Handle price change
+  const handlePriceChange = (index, field, value) => {
+    const newPrices = [...formData.prices];
+    newPrices[index][field] = value;
+    setFormData({
+      ...formData,
+      prices: newPrices
+    });
+  };
+
+  // Add new price entry
+  const addPriceEntry = () => {
+    setFormData({
+      ...formData,
+      prices: [...formData.prices, { date: new Date().toISOString().split('T')[0], price: '' }]
+    });
+  };
+
+  // Remove price entry
+  const removePriceEntry = (index) => {
+    if (formData.prices.length > 1) {
+      const newPrices = formData.prices.filter((_, i) => i !== index);
+      setFormData({
+        ...formData,
+        prices: newPrices
+      });
+    }
   };
 
   // Handle form submission
@@ -46,16 +68,12 @@ e.preventDefault();
     setIsSubmitting(true);
     setErrors({});
 
-    // Simple validation
+    // Validation
     const newErrors = {};
-    if (!formData.market_name) newErrors.market_name = 'Title is required';
-    if (!formData.cover_photo) newErrors.cover_photo = 'Cover photo URL is required';
-    if (!formData.    product_name
- || isNaN(formData.    product_name
-)) newErrors.    product_name
- = 'Valid amount of product is required';
-    if (!formData.product_image) newErrors.product_image = 'Vendor is required';
-    if (!formData.date) newErrors.date = 'Overview is required';
+    if (!formData.market_name) newErrors.market_name = 'Market name is required';
+    if (!formData.product_name) newErrors.product_name = 'Product name is required';
+    if (!formData.price) newErrors.price = 'Price is required';
+    if (!formData.product_image) newErrors.product_image = 'Product image is required';
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -63,292 +81,251 @@ e.preventDefault();
       return;
     }
 
-    console.log(formData)
     try {
-      // In a real app, you would send this to your backend API
-      await axios.post('', {
-        title: formData.market_name,
-        coverPhoto: formData.cover_photo,
-        totalAmount: parseInt(formData.    product_name),
-        author: formData.product_image,
-        category: formData.book_category,
-       
-        overview: formData.date,
-        addedBy: user.email,
-        user_email: user.email,
-      });
+      // Generate unique ID
+      const productId = Date.now().toString();
+      
+      // Create product object
+      const product = {
+        id: productId,
+        ...formData,
+        createdAt: new Date().toISOString(),
+        vendor_id: user?.uid || 'vendor-' + Date.now()
+      };
+
+      // Save to localStorage
+      const existingProducts = JSON.parse(localStorage.getItem('vendorProducts') || '[]');
+      const updatedProducts = [...existingProducts, product];
+      localStorage.setItem('vendorProducts', JSON.stringify(updatedProducts));
 
       setSubmitSuccess(true);
+      
       // Reset form
       setFormData({
+        vendor_email: user?.email || '',
+        vendor_name: user?.displayName || '',
         market_name: '',
-        cover_photo: '',
+        market_description: '',
         product_name: '',
         product_image: '',
-        user_email: '',
-        user_name: '',
         price: '',
-        date: '',
+        product_description: '',
+        status: 'pending',
+        date: new Date().toISOString().split('T')[0],
+        prices: [{ date: new Date().toISOString().split('T')[0], price: '' }]
       });
 
-      // Hide success message after 3 seconds
       setTimeout(() => setSubmitSuccess(false), 3000);
     } catch (error) {
-      console.error('Error adding book:', error);
-      setErrors({ submit: 'Failed to add book. Please try again.' });
+      console.error('Error adding product:', error);
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className='bg-green-100' style={styles.container}>
-      <h2 style={styles.heading}>Add New Product</h2>
-      
-      {submitSuccess && (
-        <div style={styles.successMessage}>
-          Product added successfully!
+    <div className="min-h-screen bg-gray-50 py-8">
+      <div className="max-w-4xl mx-auto px-4">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">🧑‍🌾 Add New Product</h1>
+          <p className="text-gray-600">Submit daily price updates for your market items</p>
         </div>
-      )}
 
-      {errors.submit && (
-        <div style={styles.errorMessage}>
-          {errors.submit}
-        </div>
-      )}
+        {/* Success Message */}
+        {submitSuccess && (
+          <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
+            ✅ Product added successfully!
+          </div>
+        )}
 
-      <form onSubmit={handleSubmit} style={styles.form}>
-        {/* Book Title */}
-        <div className='' style={styles.formGroup}>
-          <label style={styles.label}>
-            Book Title:
+        <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6">
+          {/* Vendor Info */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                📧 Vendor Email
+              </label>
+              <input
+                type="email"
+                value={formData.vendor_email}
+                readOnly
+                className="w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-50"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                🧑‍🌾 Vendor Name
+              </label>
+              <input
+                type="text"
+                value={formData.vendor_name}
+                onChange={(e) => setFormData({...formData, vendor_name: e.target.value})}
+                className="w-full px-4 py-2 border border-gray-300 rounded-md"
+                placeholder="Your name"
+              />
+            </div>
+          </div>
+
+          {/* Market Info */}
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              🏪 Market Name *
+            </label>
             <input
               type="text"
               name="market_name"
               value={formData.market_name}
               onChange={handleChange}
-              style={styles.input}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md"
+              placeholder="Enter market name"
             />
-          </label>
-          {errors.market_name && <span style={styles.error}>{errors.market_name}</span>}
-        </div>
+            {errors.market_name && <p className="text-red-500 text-sm mt-1">{errors.market_name}</p>}
+          </div>
 
-        {/* Cover Photo URL */}
-        <div style={styles.formGroup}>
-          <label style={styles.label}>
-            Cover Photo URL:
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              📝 Market Description
+            </label>
+            <textarea
+              name="market_description"
+              value={formData.market_description}
+              onChange={handleChange}
+              rows={3}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md"
+              placeholder="Location, establishment details, market information..."
+            />
+          </div>
+
+          {/* Product Info */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                🥦 Product Name *
+              </label>
+              <input
+                type="text"
+                name="product_name"
+                value={formData.product_name}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded-md"
+                placeholder="e.g., Onion, Tomato"
+              />
+              {errors.product_name && <p className="text-red-500 text-sm mt-1">{errors.product_name}</p>}
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                💵 Price per Unit *
+              </label>
+              <input
+                type="number"
+                name="price"
+                value={formData.price}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded-md"
+                placeholder="e.g., 30"
+                step="0.01"
+              />
+              {errors.price && <p className="text-red-500 text-sm mt-1">{errors.price}</p>}
+            </div>
+          </div>
+
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              🖼️ Product Image URL *
+            </label>
             <input
               type="url"
-              name="cover_photo"
-              value={formData.cover_photo}
-              onChange={handleChange}
-              style={styles.input}
-            />
-          </label>
-          {errors.cover_photo && <span style={styles.error}>{errors.cover_photo}</span>}
-        </div>
-
-        {/* Total Pages */}
-        <div style={styles.formGroup}>
-          <label style={styles.label}>
-            Amount of Product:
-            <input
-              type="number"
-              name="product_name"
-              value={formData.product_name}
-              onChange={handleChange}
-              style={styles.input}
-              min="10tk"
-            />
-          </label>
-          {errors.    product_name
- && <span style={styles.error}>{errors.    product_name
-}</span>}
-        </div>
-
-        {/* Author */}
-        <div style={styles.formGroup}>
-          <label style={styles.label}>
-            Market Name:
-            <input
-              type="text"
               name="product_image"
               value={formData.product_image}
-              onChange={handleChange} 
-              style={styles.input}
-            />
-          </label>
-          {errors.product_image && <span style={styles.error}>{errors.product_image}</span>}
-        </div>
-
-        {/* User Email (Read Only) ----------------------------------------------------------------*/}
-        <div style={styles.formGroup}>
-          <label style={styles.label}>
-            Your Email
-            <input
-              type="email"
-              name="user_email"
-              value={formData.user_email}
-              readOnly
-              style={{ ...styles.input, backgroundColor: '#f5f5f5' }}
-            />
-          </label>
-        </div>
-
-        {/* User Name (Read Only) */}
-        <div style={styles.formGroup}>
-          <label style={styles.label}>
-            Your Name :
-            <input
-              type="text"
-              name="user_name"
-              value={formData.user_name}
-            onChange={handleChange}
-              style={{ ...styles.input, backgroundColor: '#f5f5f5' }}
-            />
-          </label>
-        </div>
-
-        {/* Category Dropdown */}
-        <div style={styles.formGroup}>
-          <label style={styles.label}>
-            Category:
-            <select
-              name="book_category"
-              value={formData.book_category}
               onChange={handleChange}
-              style={styles.select}
-            >
-              {/*{categories.map(category => (
-                <option key={category} value={category}>{category}</option>
-              ))}*/}
-            </select>
-          </label>
-        </div>
+              className="w-full px-4 py-2 border border-gray-300 rounded-md"
+              placeholder="https://example.com/image.jpg"
+            />
+            {errors.product_image && <p className="text-red-500 text-sm mt-1">{errors.product_image}</p>}
+          </div>
 
-        {/* Reading Status Dropdown */}
-        <div style={styles.formGroup}>
-          <label style={styles.label}>
-            Reading Status:
-            <select
-              name="reading_status"
-              value={formData.reading_status}
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              📝 Product Description
+            </label>
+            <textarea
+              name="product_description"
+              value={formData.product_description}
               onChange={handleChange}
-              style={styles.select}
+              rows={2}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md"
+              placeholder="Freshness, quality, special notes..."
+            />
+          </div>
+
+          {/* Price History */}
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              💰 Price History (Optional)
+            </label>
+            {formData.prices.map((priceEntry, index) => (
+              <div key={index} className="flex gap-2 mb-2">
+                <input
+                  type="date"
+                  value={priceEntry.date}
+                  onChange={(e) => handlePriceChange(index, 'date', e.target.value)}
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded-md"
+                />
+                <input
+                  type="number"
+                  value={priceEntry.price}
+                  onChange={(e) => handlePriceChange(index, 'price', e.target.value)}
+                  placeholder="Price"
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded-md"
+                  step="0.01"
+                />
+                {formData.prices.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={() => removePriceEntry(index)}
+                    className="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                  >
+                    ❌
+                  </button>
+                )}
+              </div>
+            ))}
+            <button
+              type="button"
+              onClick={addPriceEntry}
+              className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
             >
-           {/*   {readingStatuses.map(status => (
-                <option key={status} value={status}>{status}</option>
-              ))}*/}
-            </select>
-          </label>
-        </div>
+              ➕ Add Price Entry
+            </button>
+          </div>
 
+          {/* Date */}
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              📅 Date
+            </label>
+            <input
+              type="date"
+              name="date"
+              value={formData.date}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md"
+            />
+          </div>
 
-        {/* Submit Button */}
-        <button 
-          type="submit" 
-          style={styles.submitButton}
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? 'Adding Book...' : 'Add Book'}
-        </button>
-      </form>
+          {/* Submit Button */}
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full bg-green-500 text-white py-3 px-6 rounded-md font-semibold hover:bg-green-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+          >
+            {isSubmitting ? 'Adding Product...' : '📦 Add Product'}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
 
-// Styles
-const styles = {
-  container: {
-    maxWidth: '600px',
-    margin: '40px auto',
-    padding: '30px',
-    fontFamily: 'Arial, sans-serif',
-    background: 'rgba(7, 88, 142, 0.14)',
-    borderRadius: '12px',
-    boxShadow: '0 4px 16px rgba(0,0,0,0.08)'
-  },
-  heading: {
-    textAlign: 'center',
-    color: '#333',
-    marginBottom: '30px',
-    fontWeight: 'bold',
-    fontSize: '2rem',
-    letterSpacing: '1px'
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '20px'
-  },
-  formGroup: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '10px'
-  },
-  label: {
-    fontWeight: 'bold',
-    color: '#555'
-  },
-  input: {
-    padding: '10px',
-    border: '1px solid #ddd',
-    borderRadius: '8px',
-    fontSize: '16px',
-    marginTop: '6px'
-
-  },
-  select: {
-    padding: '10px',
-    border: '1px solid #ddd',
-    borderRadius: '4px',
-    fontSize: '16px',
-    backgroundColor: 'white'
-  },
-  textarea: {
-    padding: '10px',
-    border: '1px solid #ddd',
-    borderRadius: '4px',
-    fontSize: '16px',
-    resize: 'vertical'
-  },
-  submitButton: {
-    padding: '12px 20px',
-    backgroundColor: '#81bde7ff',
-    color: 'white',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    fontSize: '16px',
-    marginTop: '10px',
-    ':hover': {
-      backgroundColor: '#8ccaeaff'
-    },
-    ':disabled': {
-      backgroundColor: '#cccccc',
-      cursor: 'not-allowed'
-    }
-  },
-  error: {
-    color: 'red',
-    fontSize: '14px'
-  },
-  errorMessage: {
-    backgroundColor: '#ffebee',
-    color: '#d32f2f',
-    padding: '15px',
-    borderRadius: '4px',
-    marginBottom: '20px',
-    border: '1px solid #ef9a9a'
-  },
-  successMessage: {
-    backgroundColor: '#e8f5e9',
-    color: '#2e7d32',
-    padding: '15px',
-    borderRadius: '4px',
-    marginBottom: '20px',
-    border: '1px solid #a5d6a7'
-  }
-};
-
-export default Addproducts;
+export default AddProduct;

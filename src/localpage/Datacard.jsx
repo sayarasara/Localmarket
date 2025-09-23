@@ -7,7 +7,7 @@ const Datacard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:3000/products')
+    fetch('https://local-market-server-self.vercel.app/products')
       .then(res => res.json())
       .then(data => {
         setProducts(data);
@@ -20,16 +20,17 @@ const Datacard = () => {
 
   return (
     <div style={{
-      backgroundColor: '',
+      backgroundColor: '#d3e6f1e4',
       minHeight: '100vh', 
       padding: '30px 0'
     }}>
       <h1 style={{
         textAlign: 'center',
         padding: '30px 0 10px 0',
-        color: '#333'
+        color: '#220996ff',
+        fontSize: '40px'
       }}>
-        Discover Your Next Read
+        All Products
       </h1>
       <div style={{
         display: 'flex',
@@ -40,7 +41,7 @@ const Datacard = () => {
         margin: '0 auto'
       }}>
         {products.slice(0, 11).map(products => (
-          <div key={products._id} style={{ margin: '10px', width: '350px' }}>
+          <div key={products._id} style={{ margin: '10px', width: '350px', height: '300px' }}>
           <Card products={products} />
           </div>
         ))}

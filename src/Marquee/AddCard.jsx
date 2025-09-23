@@ -16,17 +16,23 @@ const AddCard = ({ bgImage }) => {
           filter: 'brightness(2)'
   }}
 >
-  <div className="hero-overlay"></div>
-  <div className="hero-content text-neutral-content text-left">
+  <div className="hero-overlay "></div>
+  <div className="hero-content text-left">
     <div className="max-w-md">
-      <h1 className="mb-5 text-5xl font-bold">Hello there</h1>
+      <h1 className="mb-5 text-5xl italic font-bold">Here Everything Whatever you want!</h1>
    <div className="w-20 rounded-full">
           <img  className='rounded-full '
             alt=""
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHVejFXGUWyODSZM71eFGihY_KX7bvTnVSlQ&s
             "/>
             </div>
-      <button className="btn btn-primary">Get Started</button>
+            <div className="rating">
+  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="1 star" />
+  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="2 star" defaultChecked />
+  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="3 star" />
+  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="4 star" />
+  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="5 star" />
+</div>
     </div>
   </div>
 </div>

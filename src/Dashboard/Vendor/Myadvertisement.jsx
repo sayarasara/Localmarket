@@ -12,13 +12,7 @@ const Myadvertisement = () => {
       image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1020&q=80',
       status: 'approved'
     },
-    {
-      id: 2,
-      title: 'New Organic Products',
-      description: 'Check out our new range of organic products for your home.',
-      image: 'https://images.unsplash.com/photo-1589923188937-cb64779f4abe?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
-      status: 'pending'
-    }
+
   ]);
 
   const [editModalOpen, setEditModalOpen] = useState(false);

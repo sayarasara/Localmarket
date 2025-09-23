@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-//import { motion } from "motion/react"
+//import { motion } from "framer-motion";
 
 function Card({ products }) {
   if (!products) {
@@ -12,16 +12,13 @@ function Card({ products }) {
 
   return (
     <div 
-      whileHover={{ scale: 1.1 }}
-  whileTap={{ scale: 0.95 }}
-  onHoverStart={() => console.log('hover started!')}
     
-    className="bg-slate-100 " style={{ boxShadow: "0 4px 16px 0 rgba(71, 130, 134, 0.5)" }} >
-    <div className="card lg:card-side bg-accent-content shadow-sm">
+    className="bg-slate-100 " style={{ boxShadow: "0 4px 16px 0 rgba(230, 240, 240, 0.5)" }} >
+    <div className="card lg:card-side bg-slate-100 shadow-sm">
       <figure>
         <img
           src={product_image}
-        //  alt={}
+          alt={product_name}
         />
       </figure>
       <div className="card-body">
@@ -30,8 +27,9 @@ function Card({ products }) {
         <p><strong>date:</strong> {date}</p>
        
         <div className="card-actions justify-end">
-          <Link to={`/Datacard/detail/${_id}`}>View Details</Link>
-        
+        <button className="btn bg-slate-400">
+           <Link to={`/Datacard/detail/${_id}`}>View Details</Link>
+        </button>
         </div>
       </div>
     </div>

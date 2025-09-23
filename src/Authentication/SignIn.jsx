@@ -74,7 +74,7 @@ const SignIn = () => {
 
     return (
 
-        <div className="card bg-slate-200 w-full max-w-sm shrink-0 shadow-2xl text-blue-900 ">
+        <div className="card bg-slate-200 w-full max-w-sm shrink-0 shadow-2xl text-blue-600 italic ">
             <div className="card-body">
                 <h1 className="text-5xl font-bold">Create Account</h1>
                 <form onSubmit={handleSubmit(onSubmit)}>
