@@ -55,7 +55,7 @@ const MyParcels = () => {
                         You haven't placed any orders yet.
                     </p>
                     <Link
-                        to="/products" 
+                        to="/Datacard" 
                         className="mt-4 inline-block px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
                     >
                         🛒 Start Shopping

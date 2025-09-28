@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router';
-import { FaHome, FaBoxOpen, FaMoneyCheckAlt, FaSearchLocation, FaUserCheck, FaUserClock, FaUserShield, FaMotorcycle, FaTasks, FaCheckCircle, FaWallet, FaUser } from 'react-icons/fa';
+import { FaHome, FaBoxOpen, FaMoneyCheckAlt, FaSearchLocation, FaUserCheck, FaUserClock, FaUserShield, FaMotorcycle, FaTasks, FaCheckCircle, FaWallet, FaUser, FaAdversal } from 'react-icons/fa';
 import { AiFillPieChart } from 'react-icons/ai'; // <-- Correct import for AiFillPieChart
 import UserRole from '../Hooks/UserRole';
 
@@ -22,7 +22,7 @@ if (roleLoading) {
             <div className="drawer-content flex flex-col">
 
                 {/* Navbar */}
-                <div className="navbar bg-base-300 w-full lg:hidden">
+                <div className="navbar bg-slate-300 w-full lg:hidden">
                     <div className="flex-none ">
                         <label htmlFor="my-drawer-2" aria-label="open sidebar" className="btn btn-square btn-ghost">
                             <svg
@@ -50,7 +50,7 @@ if (roleLoading) {
             </div>
             <div className="drawer-side">
                 <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
-                <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+                <ul className="menu bg-slate-200 text-base-content min-h-full w-80 p-4">
                     {/* Sidebar content here */}
                 
                     {/* general user links */}
@@ -67,6 +67,31 @@ if (roleLoading) {
                         </NavLink>
                     </li>
 
+                    {role === 'user' && (
+                        <>
+                            <li>
+                                <NavLink to="/dashboard/MyParcels">
+                                    <FaBoxOpen className="inline-block mr-2" />
+                                    My Orders
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/Manageitme">
+                                    <FaMoneyCheckAlt className="inline-block mr-2" />
+                                    Manageitme
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/Viewchart">
+                                    <AiFillPieChart className="inline-block mr-2" />
+                                    View Chart
+                                </NavLink>
+                            </li>
+                        </>
+                    )}
+
+{/* 
+    {role === 'user' && (
                    <li>                  <NavLink to="/dashboard/MyParcels">
                             <FaBoxOpen className="inline-block mr-2" />
                             My Orders
@@ -78,16 +103,16 @@ if (roleLoading) {
                           Manageitme
                         </NavLink>
                     </li>
-                    {/* general user links */}
+                  
                     <li>
                     <NavLink to="/dashboard/Viewchart">
                         <AiFillPieChart className="inline-block mr-2" />
                         View Chart
                     </NavLink>
                     </li>
-                  
+    )} */}
                    {/* vendor links */}
-                    {!roleLoading && role === 'vendor' && <>
+                    { role === 'vendor' && <>
                        <li>
                             <NavLink to="/dashboard/Addproducts">
                                 <FaTasks className="inline-block mr-2" />
@@ -108,7 +133,7 @@ if (roleLoading) {
                     </li>
                         <li>
                             <NavLink to="/dashboard/Myadvertisement">
-                                <FaCheckCircle className="inline-block mr-2" />
+                                <FaAdversal className="inline-block mr-2" />
                                 My Advertisements
                             </NavLink>
                         </li>
@@ -117,12 +142,12 @@ if (roleLoading) {
 
 
                     {/* admin link */}
-                    {!roleLoading && role === 'admin' &&
+                    { role === 'admin' &&
                         <>
                         
                          <li>
                                 <NavLink to="/dashboard/Alladvertisement">
-                                    <FaMotorcycle className="inline-block mr-2" />
+                                    <FaAdversal className="inline-block mr-2" />
                                     All Advertisements
                                 </NavLink>
                             </li>

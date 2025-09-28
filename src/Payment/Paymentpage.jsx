@@ -49,6 +49,9 @@ const { error, paymentMethod} = await stripe.createPaymentMethod({
 else {
   setError('');
   console.log('payment method', paymentMethod);
+    alert('Payment Successful! Your order has been confirmed.');
+
+
 }
 
 

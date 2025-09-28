@@ -27,7 +27,7 @@ const UserRole = () => {
       return [null, false];
 
     }
-    console.log(roleData)
+   // console.log(roleData)
     return [roleData?.role, isRoleLoading]
 }
 

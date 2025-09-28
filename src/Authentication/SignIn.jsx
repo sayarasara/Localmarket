@@ -21,6 +21,8 @@ const SignIn = () => {
 
         console.log(data);
 
+     
+
         createUser(data.email, data.password)
             .then(async (result) => {
                 console.log(result.user);
@@ -34,7 +36,7 @@ const SignIn = () => {
                 }
 
                 const userRes = await axiosInstance.post('/users', userInfo);
-                console.log(userRes.data);
+               // console.log(userRes.data);
 
                 // update user profile in firebase
                 const userProfile = {

@@ -7,6 +7,8 @@ import { AuthContext } from './AuthContext';
 
 const googleProvider = new GoogleAuthProvider();
 
+
+
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -38,7 +40,7 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
-            console.log('user in the auth state change', currentUser)
+         //   console.log('user in the auth state change', currentUser)
             setLoading(false);
         });
 
@@ -46,6 +48,8 @@ const AuthProvider = ({ children }) => {
             unSubscribe();
         }
     }, [])
+
+//console.log('token firebase token', user.accessToken)
 
     const authInfo = {
         user,

@@ -24,6 +24,7 @@ import Detail from "../localpage/Detail";
 //import Bevendor from "../Dashboard/Vendor/Bevendor";
 import Profile from "../Dashboard/common/Profile";
 import Payment from "../Payment/Payment";
+import Errorpage from "../localpage/Errorpage";
 
 
 
@@ -31,6 +32,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <Rootlayout />,
+    errorElement: <Errorpage></Errorpage>,
     children: [
       { index: true, element: <App /> },
       { path: "SignIn", element: <SignIn /> },

@@ -44,12 +44,12 @@ const Profile = () => {
               </p>
 
               <div>
-                <button className='bg-slate-500 px-10 py-1 rounded-lg text-black cursor-pointer hover:bg-slate-800 block mb-1'>
-                  Update Profile
-                </button>
-                <button className='bg-slate-500 px-7 py-1 rounded-lg text-black cursor-pointer hover:bg-slate-800'>
-                  Change Password
-                </button>
+                       <div className="w-19 rounded-full">
+          <img  className='rounded-full'
+            alt=""
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHVejFXGUWyODSZM71eFGihY_KX7bvTnVSlQ&s
+            "/>
+            </div>
               </div>
             </div>
           </div>
