@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router';
 import useAxios from '../Hooks/useAxios';
@@ -60,52 +61,50 @@ const SignIn = () => {
   
     }
 
-    const handleImageUpload = async (e) => {
-        const image = e.target.files[0];
-        console.log(image)
+    // const handleImageUpload = async (e) => {
+    //     const image = e.target.files[0];
+    //     console.log(image)
 
-        const formData = new FormData();
-        formData.append('image', image);
+    //     const formData = new FormData();
+    //     formData.append('image', image);
+    //     const imagUploadUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_upload_key}`
+    //     const res = await axios.post(imagUploadUrl, formData);
 
-
-        const imagUploadUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_upload_key}`
-        const res = await axios.post(imagUploadUrl, formData);
-
-        setProfilePic(res.data.data.url);
-    }
+    //     setProfilePic(res.data.data.url);
+    // }
 
     return (
-
-        <div className="card bg-slate-200 w-full max-w-sm shrink-0 shadow-2xl text-blue-600 italic ">
-            <div className="card-body">
+<div className='flex justify-center items-center p-10 rounded-box  '>
+        <div className="card bg-slate-200 w-full  max-w-sm shrink-0 shadow-2xl text-blue-900 italic p-10 ">
+            <div className="card-body p-10">
                 <h1 className="text-5xl font-bold">Create Account</h1>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <fieldset className="fieldset">
                         {/* name field */}
-                        <label className="label">Your Name</label>
-                        <input type="text"
+                        <label className="label ">Your Name</label>
+                        <input type="text bg-slate-100 "
                             {...register('name', { required: true })}
-                            className="input" placeholder="Your Name" />
+                            className="input bg-white" placeholder="Your Name" />
                         {
                             errors.email?.type === 'required' && <p className='text-red-500'>Name is required</p>
                         }
-                        {/* name field */}
-                        <label className="label">Your Name</label>
-                        <input type="file"
+                       
+                        {/* <label className="label">Your Profile Picture</label>
+                        <input type="file "
                             onChange={handleImageUpload}
-                            className="input" placeholder="Your Profile picture" />
+                            className="input bg-white" placeholder="Your Profile picture" />  */}
 
-                        {/* email field */}
+                    
                         <label className="label">Email</label>
-                        <input type="email"
+                        <input type="email bg-slate-100"
                             {...register('email', { required: true })}
-                            className="input" placeholder="Email" />
+                            className="input bg-white" placeholder="Email" />
                         {
                             errors.email?.type === 'required' && <p className='text-red-500'>Email is required</p>
                         }
-                        {/* password field*/}
+                     
                         <label className="label">Password</label>
-                        <input type="password" {...register('password', { required: true, minLength: 6 })} className="input" placeholder="Password" />
+                        <input type="password bg-base-100" {...register('password', { required: true, minLength: 6 })} className="input bg-white" placeholder="Password" />
                         {
                             errors.password?.type === 'required' && <p className='text-red-500'>Password is required</p>
                         }
@@ -114,12 +113,13 @@ const SignIn = () => {
                         }
 
                         <div><a className="link link-hover">Forgot password?</a></div>
-                        <button className="btn btn-primary text-black mt-4">Sign In</button>
+                        <button className="btn btn-primary text-black mt-4">Register</button>
                     </fieldset>
                     <p><small>Already have an account? <Link className="btn btn-link" to="/login">Login</Link></small></p>
                 </form>
                 <SocialLogin></SocialLogin>
             </div>
+        </div>
         </div>
     );
 };

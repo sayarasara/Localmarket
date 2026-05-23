@@ -41,7 +41,7 @@ function Card({ products }) {
         <div className="mt-auto">
           <Link 
             to={`/Datacard/detail/${_id}`}
-            className="block w-full bg-blue-500 hover:bg-blue-600 text-white text-center py-2 px-4 rounded transition-colors duration-200 font-medium no-underline"
+            className="block w-full bg-slate-500 hover:bg-blue-300 text-white text-center py-2 px-4 rounded transition-colors duration-200 font-medium no-underline"
           >
             View Details
           </Link>

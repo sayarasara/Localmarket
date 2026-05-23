@@ -122,7 +122,7 @@ const Offers = () => {
             <div className="container mx-auto px-4">
                 {/* Header */}
                 <div className="text-center mb-12">
-                    <h1 className="text-5xl font-bold text-gray-800 mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    <h1 className="text-5xl font-bold text-gray-800 mb-4 bg-slate-500 bg-clip-text text-transparent">
                         🎁 Exclusive Offers
                     </h1>
                     <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -215,7 +215,7 @@ const Offers = () => {
                                 {/* Action Button */}
                                 <Link
                                     to="/Datacard"
-                                    className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-200 transform hover:scale-105 block text-center"
+                                    className="w-full bg-slate-400 text-white py-3 px-6 rounded-xl font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-200 transform hover:scale-105 block text-center"
                                 >
                                     🛒 Shop Now
                                 </Link>
@@ -235,7 +235,7 @@ const Offers = () => {
                                 setSearchTerm('');
                                 setSelectedCategory('all');
                             }}
-                            className="bg-blue-500 text-white px-8 py-3 rounded-xl font-semibold hover:bg-blue-600 transition-colors"
+                            className="bg-slate-300 text-white px-8 py-3 rounded-xl font-semibold hover:bg-blue-600 transition-colors"
                         >
                             Clear Filters
                         </button>
